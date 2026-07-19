@@ -10,7 +10,7 @@ FRATERNITIES = [
     "Delta Tau Delta","Delta Upsilon","FarmHouse","Gamma Delta Chi",
     "Kappa Alpha Order","Kappa Alpha Psi","Kappa Sigma","Lambda Alpha Upsilon","Lambda Chi Alpha",
     "Mu Phi Epsilon","Phi Alpha Delta","Phi Gamma Delta (FIJI)","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau","Phi Sigma Kappa",
-    "Phi Sigma Pi","Pi Kappa Alpha","Pi Kappa Phi","Pi Lambda Phi","Psi Sigma Phi",
+    "Phi Sigma Pi","Pi Delta Psi","Pi Kappa Alpha","Pi Kappa Phi","Pi Lambda Phi","Psi Sigma Phi",
     "Sigma Alpha Epsilon","Sigma Alpha Mu","Sigma Beta Rho","Sigma Chi","Sigma Nu",
     "Sigma Phi Delta","Sigma Phi Epsilon","Sigma Pi","Sigma Tau Gamma",
     "Tau Epsilon Phi","Theta Chi","Theta Tau","Triangle",
