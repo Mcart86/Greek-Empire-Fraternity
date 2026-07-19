@@ -42,6 +42,10 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:14px 6
 .search-input::placeholder{color:#A8A198;}
 .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#9A958C;pointer-events:none;}
 .result-count{font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;}
+.az-bar{position:sticky;top:81px;z-index:50;background:#FFFFFF;display:flex;gap:8px;overflow-x:auto;padding:12px 0 16px;border-bottom:1px solid rgba(0,0,0,0.08);margin-bottom:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.az-bar::-webkit-scrollbar{display:none;}
+.az-letter{flex-shrink:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#FAF8F4;border:1px solid rgba(0,0,0,0.1);color:#1A1A1A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;text-decoration:none;transition:background .2s,color .2s,border-color .2s;}
+.az-letter:hover,.az-letter.active{background:var(--gold);color:#FFFFFF;border-color:var(--gold);}
 .letter-group{margin-bottom:8px;}
 .letter-group.hidden{display:none;}
 .letter-heading{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--gold);border-bottom:1px solid rgba(184,150,62,0.25);padding-bottom:8px;margin:32px 0 4px;}
@@ -75,6 +79,8 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
 .page-hero{padding:26px 20px 20px;}
 .directory-wrap{padding:32px 20px 72px;}
 .org-item{font-size:17px;}
+.az-letter{width:28px;height:28px;font-size:11px;}
+.az-bar{top:73px;}
 }
 </style>
 </head>
@@ -103,10 +109,27 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
     <input type="text" class="search-input" id="orgSearch" placeholder="Search for your fraternity..." oninput="filterOrgs()">
   </div>
 
+  <div class="az-bar" id="azBar">
+    <a href="#letter-A" class="az-letter" data-jump="A">A</a>
+    <a href="#letter-B" class="az-letter" data-jump="B">B</a>
+    <a href="#letter-C" class="az-letter" data-jump="C">C</a>
+    <a href="#letter-D" class="az-letter" data-jump="D">D</a>
+    <a href="#letter-F" class="az-letter" data-jump="F">F</a>
+    <a href="#letter-G" class="az-letter" data-jump="G">G</a>
+    <a href="#letter-I" class="az-letter" data-jump="I">I</a>
+    <a href="#letter-K" class="az-letter" data-jump="K">K</a>
+    <a href="#letter-L" class="az-letter" data-jump="L">L</a>
+    <a href="#letter-O" class="az-letter" data-jump="O">O</a>
+    <a href="#letter-P" class="az-letter" data-jump="P">P</a>
+    <a href="#letter-S" class="az-letter" data-jump="S">S</a>
+    <a href="#letter-T" class="az-letter" data-jump="T">T</a>
+    <a href="#letter-Z" class="az-letter" data-jump="Z">Z</a>
+  </div>
+
   <p class="result-count" id="resultCount">78 Fraternities</p>
 
   <div id="orgGroups">
-  <div class="letter-group" data-letter="A">
+  <div class="letter-group" data-letter="A" id="letter-A">
     <p class="letter-heading">A</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="acacia"><span>Acacia</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="alpha chi rho"><span>Alpha Chi Rho</span><span class="org-arrow">&rarr;</span></a>
@@ -122,19 +145,19 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="alpha sigma phi"><span>Alpha Sigma Phi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="alpha tau omega"><span>Alpha Tau Omega</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="B">
+  <div class="letter-group" data-letter="B" id="letter-B">
     <p class="letter-heading">B</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="beta chi theta"><span>Beta Chi Theta</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="beta theta pi"><span>Beta Theta Pi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="beta upsilon chi"><span>Beta Upsilon Chi</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="C">
+  <div class="letter-group" data-letter="C" id="letter-C">
     <p class="letter-heading">C</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="chi phi"><span>Chi Phi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="chi psi"><span>Chi Psi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="chi sigma tau"><span>Chi Sigma Tau</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="D">
+  <div class="letter-group" data-letter="D" id="letter-D">
     <p class="letter-heading">D</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="delta chi"><span>Delta Chi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="delta epsilon psi"><span>Delta Epsilon Psi</span><span class="org-arrow">&rarr;</span></a>
@@ -145,20 +168,20 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="delta tau delta"><span>Delta Tau Delta</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="delta upsilon"><span>Delta Upsilon</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="F">
+  <div class="letter-group" data-letter="F" id="letter-F">
     <p class="letter-heading">F</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="farmhouse"><span>FarmHouse</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="G">
+  <div class="letter-group" data-letter="G" id="letter-G">
     <p class="letter-heading">G</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="gamma beta chi"><span>Gamma Beta Chi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="gamma zeta alpha"><span>Gamma Zeta Alpha</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="I">
+  <div class="letter-group" data-letter="I" id="letter-I">
     <p class="letter-heading">I</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="iota phi theta"><span>Iota Phi Theta</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="K">
+  <div class="letter-group" data-letter="K" id="letter-K">
     <p class="letter-heading">K</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="kappa alpha order"><span>Kappa Alpha Order</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="kappa delta rho"><span>Kappa Delta Rho</span><span class="org-arrow">&rarr;</span></a>
@@ -166,18 +189,18 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="kappa psi"><span>Kappa Psi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="kappa sigma"><span>Kappa Sigma</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="L">
+  <div class="letter-group" data-letter="L" id="letter-L">
     <p class="letter-heading">L</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="lambda alpha upsilon"><span>Lambda Alpha Upsilon</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="lambda phi epsilon"><span>Lambda Phi Epsilon</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="lambda sigma upsilon"><span>Lambda Sigma Upsilon</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="lambda theta phi"><span>Lambda Theta Phi</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="O">
+  <div class="letter-group" data-letter="O" id="letter-O">
     <p class="letter-heading">O</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="omega delta phi"><span>Omega Delta Phi</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="P">
+  <div class="letter-group" data-letter="P" id="letter-P">
     <p class="letter-heading">P</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="phi alpha delta"><span>Phi Alpha Delta</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="phi beta sigma"><span>Phi Beta Sigma</span><span class="org-arrow">&rarr;</span></a>
@@ -201,7 +224,7 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="psi sigma phi"><span>Psi Sigma Phi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="psi upsilon"><span>Psi Upsilon</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="S">
+  <div class="letter-group" data-letter="S" id="letter-S">
     <p class="letter-heading">S</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="sigma alpha epsilon"><span>Sigma Alpha Epsilon</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="sigma alpha mu"><span>Sigma Alpha Mu</span><span class="org-arrow">&rarr;</span></a>
@@ -214,14 +237,14 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="sigma pi"><span>Sigma Pi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="sigma tau gamma"><span>Sigma Tau Gamma</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="T">
+  <div class="letter-group" data-letter="T" id="letter-T">
     <p class="letter-heading">T</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="tau epsilon phi"><span>Tau Epsilon Phi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="theta chi"><span>Theta Chi</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="theta tau"><span>Theta Tau</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="triangle"><span>Triangle</span><span class="org-arrow">&rarr;</span></a>
   </div>
-  <div class="letter-group" data-letter="Z">
+  <div class="letter-group" data-letter="Z" id="letter-Z">
     <p class="letter-heading">Z</p>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="zeta beta tau"><span>Zeta Beta Tau</span><span class="org-arrow">&rarr;</span></a>
     <a href="https://greekempire.swagflo.com/fraternities" target="_blank" rel="noopener" class="org-item" data-name="zeta psi"><span>Zeta Psi</span><span class="org-arrow">&rarr;</span></a>
@@ -255,6 +278,32 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
 
     document.getElementById('resultCount').textContent = visibleCount + (visibleCount === 1 ? ' Fraternity' : ' Fraternities');
     document.getElementById('noResults').classList.toggle('show', visibleCount === 0);
+  }
+
+  document.querySelectorAll('.az-letter').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = 'letter-' + this.getAttribute('data-jump');
+      var target = document.getElementById(targetId);
+      if (!target) return;
+      var azBar = document.getElementById('azBar');
+      var targetTop = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({top: targetTop - (azBar.offsetHeight + 90), behavior: 'smooth'});
+    });
+  });
+
+  var letterGroups = document.querySelectorAll('.letter-group');
+  var azLetters = document.querySelectorAll('.az-letter');
+  if ('IntersectionObserver' in window) {
+    var groupObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var letter = entry.target.getAttribute('data-letter');
+          azLetters.forEach(function(l) { l.classList.toggle('active', l.getAttribute('data-jump') === letter); });
+        }
+      });
+    }, {rootMargin: '-140px 0px -70% 0px', threshold: 0});
+    letterGroups.forEach(function(g) { groupObserver.observe(g); });
   }
 </script><div class="meander"></div>
 <footer>

@@ -60,6 +60,10 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:14px 6
 .search-input::placeholder{color:#A8A198;}
 .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#9A958C;pointer-events:none;}
 .result-count{font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;}
+.az-bar{position:sticky;top:81px;z-index:50;background:#FFFFFF;display:flex;gap:8px;overflow-x:auto;padding:12px 0 16px;border-bottom:1px solid rgba(0,0,0,0.08);margin-bottom:24px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.az-bar::-webkit-scrollbar{display:none;}
+.az-letter{flex-shrink:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#FAF8F4;border:1px solid rgba(0,0,0,0.1);color:#1A1A1A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;text-decoration:none;transition:background .2s,color .2s,border-color .2s;}
+.az-letter:hover,.az-letter.active{background:var(--gold);color:#FFFFFF;border-color:var(--gold);}
 .letter-group{margin-bottom:8px;}
 .letter-group.hidden{display:none;}
 .letter-heading{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--gold);border-bottom:1px solid rgba(184,150,62,0.25);padding-bottom:8px;margin:32px 0 4px;}
@@ -93,6 +97,8 @@ footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center
 .page-hero{padding:26px 20px 20px;}
 .directory-wrap{padding:32px 20px 72px;}
 .org-item{font-size:17px;}
+.az-letter{width:28px;height:28px;font-size:11px;}
+.az-bar{top:73px;}
 }
 """
 
@@ -160,13 +166,15 @@ def make_page():
         grouped.setdefault(letter, []).append(name)
 
     groups_html = ""
+    az_bar_html = ""
     for letter in sorted(grouped.keys()):
-        groups_html += f'  <div class="letter-group" data-letter="{letter}">\n'
+        groups_html += f'  <div class="letter-group" data-letter="{letter}" id="letter-{letter}">\n'
         groups_html += f'    <p class="letter-heading">{letter}</p>\n'
         for name in grouped[letter]:
             slug = urllib.parse.quote(name)
             groups_html += f'    <a href="{PLACEHOLDER_URL}" target="_blank" rel="noopener" class="org-item" data-name="{name.lower()}"><span>{name}</span><span class="org-arrow">&rarr;</span></a>\n'
         groups_html += '  </div>\n'
+        az_bar_html += f'    <a href="#letter-{letter}" class="az-letter" data-jump="{letter}">{letter}</a>\n'
 
     html = head("Shop by Fraternity") + nav_bar() + subnav() + f"""
 <section class="page-hero">
@@ -182,6 +190,9 @@ def make_page():
     <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     <input type="text" class="search-input" id="orgSearch" placeholder="Search for your fraternity..." oninput="filterOrgs()">
   </div>
+
+  <div class="az-bar" id="azBar">
+{az_bar_html}  </div>
 
   <p class="result-count" id="resultCount">{len(FRATERNITIES)} Fraternities</p>
 
@@ -215,6 +226,32 @@ def make_page():
 
     document.getElementById('resultCount').textContent = visibleCount + (visibleCount === 1 ? ' Fraternity' : ' Fraternities');
     document.getElementById('noResults').classList.toggle('show', visibleCount === 0);
+  }}
+
+  document.querySelectorAll('.az-letter').forEach(function(link) {{
+    link.addEventListener('click', function(e) {{
+      e.preventDefault();
+      var targetId = 'letter-' + this.getAttribute('data-jump');
+      var target = document.getElementById(targetId);
+      if (!target) return;
+      var azBar = document.getElementById('azBar');
+      var targetTop = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({{top: targetTop - (azBar.offsetHeight + 90), behavior: 'smooth'}});
+    }});
+  }});
+
+  var letterGroups = document.querySelectorAll('.letter-group');
+  var azLetters = document.querySelectorAll('.az-letter');
+  if ('IntersectionObserver' in window) {{
+    var groupObserver = new IntersectionObserver(function(entries) {{
+      entries.forEach(function(entry) {{
+        if (entry.isIntersecting) {{
+          var letter = entry.target.getAttribute('data-letter');
+          azLetters.forEach(function(l) {{ l.classList.toggle('active', l.getAttribute('data-jump') === letter); }});
+        }}
+      }});
+    }}, {{rootMargin: '-140px 0px -70% 0px', threshold: 0}});
+    letterGroups.forEach(function(g) {{ groupObserver.observe(g); }});
   }}
 </script>""" + foot()
 
