@@ -113,7 +113,7 @@ def head(title):
 <link rel="icon" type="image/png" href="favicon.png">
 <meta property="og:title" content="{title} — Greek Empire">
 <meta property="og:description" content="College branded merchandise for the best years of your life.">
-<meta property="og:image" content="shield-logo.png">
+<meta property="og:image" content="https://greek-empire-fraternity.vercel.app/shield-logo.png">
 <meta property="og:type" content="website">
 {FONTS}
 <style>{CSS}</style>
@@ -131,7 +131,7 @@ def subnav():
   <a href="https://greekempire.swagflo.com/design-your-own">Design Your Own</a>
   <a href="https://greek-empire-gallery.vercel.app/">Design Gallery</a>
   <a href="https://greekempire.swagflo.com/sororities">Shop by Sorority</a>
-  <a href="index.html" class="active">Shop by Fraternity</a>
+  <a href="https://greek-empire-fraternity.vercel.app/" class="active">Shop by Fraternity</a>
   <a href="https://greek-empire-ambassador-landing-new.vercel.app/">Campus Ambassador</a>
 </div>"""
 
