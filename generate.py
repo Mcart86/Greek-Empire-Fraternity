@@ -179,7 +179,7 @@ def make_page():
 <section class="page-hero">
   <h1>Shop by Fraternity</h1>
   <div class="rule"></div>
-  <p class="page-desc">Find your fraternity and shop custom branded merchandise built for your organization.</p>
+  <p class="page-desc">Find your fraternity and shop custom branded merchandise built for your chapter.</p>
 </section>
 <div class="directory-bg">
 <div class="directory-wrap">
