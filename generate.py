@@ -178,7 +178,6 @@ def make_page():
 
     html = head("Shop by Fraternity") + nav_bar() + subnav() + f"""
 <section class="page-hero">
-  <p class="eyebrow">Design Gallery</p>
   <h1>Shop by Fraternity</h1>
   <div class="rule"></div>
   <p class="page-desc">Find your fraternity and shop custom branded merchandise built for your organization.</p>
