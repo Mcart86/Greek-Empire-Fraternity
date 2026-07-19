@@ -136,8 +136,7 @@ def subnav():
 </div>"""
 
 def foot():
-    return """<div class="meander"></div>
-<footer>
+    return """<footer>
   <div class="foot-left">
     <span class="foot-brand">Greek Empire</span>
     <span class="foot-tag">College Branded Merchandise for the Best Years of Your Life</span>
@@ -155,6 +154,7 @@ def foot():
     <img src="shield-logo.png" alt="Greek Empire" class="foot-shield">
   </div>
 </footer>
+<div class="meander"></div>
 </body>
 </html>"""
 
