@@ -39,6 +39,11 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:14px 6
 .nav-logo img{height:52px;width:auto;}
 .nav-back{font-size:12px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
 .nav-back:hover{color:var(--cream);}
+.subnav{display:flex;justify-content:center;gap:48px;padding:15px 24px;background:#0A0A0A;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.subnav a{color:var(--cream);font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;white-space:nowrap;}
+.subnav a:hover{color:var(--gold);}
+.subnav a.active{color:var(--gold);position:relative;}
+.subnav a.active::after{content:'';position:absolute;left:0;right:0;bottom:-15px;height:2px;background:var(--gold);}
 @keyframes shimmerGold{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
 @keyframes headerFadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 @keyframes headerScaleIn{from{opacity:0;transform:scale(0.94);}to{opacity:1;transform:scale(1);}}
@@ -116,6 +121,15 @@ def nav_bar():
   <a href="https://greekempire.swagflo.com/" class="nav-back">&larr; Back to Site</a>
 </nav>"""
 
+def subnav():
+    return """<div class="subnav">
+  <a href="https://greekempire.swagflo.com/design-your-own">Design Your Own</a>
+  <a href="https://greek-empire-gallery.vercel.app/">Design Gallery</a>
+  <a href="https://greekempire.swagflo.com/sororities">Shop by Sorority</a>
+  <a href="index.html" class="active">Shop by Fraternity</a>
+  <a href="https://greek-empire-ambassador-landing-new.vercel.app/">Campus Ambassador</a>
+</div>"""
+
 def foot():
     return """<div class="meander"></div>
 <footer>
@@ -154,7 +168,7 @@ def make_page():
             groups_html += f'    <a href="{PLACEHOLDER_URL}" target="_blank" rel="noopener" class="org-item" data-name="{name.lower()}"><span>{name}</span><span class="org-arrow">&rarr;</span></a>\n'
         groups_html += '  </div>\n'
 
-    html = head("Shop by Fraternity") + nav_bar() + f"""
+    html = head("Shop by Fraternity") + nav_bar() + subnav() + f"""
 <section class="page-hero">
   <p class="eyebrow">Design Gallery</p>
   <h1>Shop by Fraternity</h1>
