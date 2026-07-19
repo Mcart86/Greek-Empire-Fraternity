@@ -6,10 +6,10 @@ DIR = "/home/claude/greek-empire-fraternity"
 FRATERNITIES = [
     "Acacia","Alpha Chi Rho","Alpha Epsilon Pi","Alpha Gamma Rho","Alpha Kappa Lambda",
     "Alpha Sigma Phi","Alpha Tau Omega","Beta Chi Theta","Beta Theta Pi","Beta Upsilon Chi",
-    "Chi Phi","Chi Psi","Chi Sigma Tau","Delta Chi","Delta Sigma Phi",
+    "Chi Phi","Chi Psi","Chi Sigma Tau","Delta Chi","Delta Sigma Phi","Delta Sigma Pi",
     "Delta Tau Delta","Delta Upsilon","FarmHouse","Gamma Delta Chi",
     "Kappa Alpha Order","Kappa Alpha Psi","Kappa Sigma","Lambda Alpha Upsilon","Lambda Chi Alpha",
-    "Phi Gamma Delta (FIJI)","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau","Phi Sigma Kappa",
+    "Mu Phi Epsilon","Phi Alpha Delta","Phi Gamma Delta (FIJI)","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau","Phi Sigma Kappa",
     "Phi Sigma Pi","Pi Kappa Alpha","Pi Kappa Phi","Pi Lambda Phi","Psi Sigma Phi",
     "Sigma Alpha Epsilon","Sigma Alpha Mu","Sigma Beta Rho","Sigma Chi","Sigma Nu",
     "Sigma Phi Delta","Sigma Phi Epsilon","Sigma Pi","Sigma Tau Gamma",
