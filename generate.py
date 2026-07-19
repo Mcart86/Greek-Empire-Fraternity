@@ -1,0 +1,211 @@
+#!/usr/bin/env python3
+import json, urllib.parse
+
+DIR = "/home/claude/greek-empire-fraternity"
+
+FRATERNITIES = [
+    "Acacia","Alpha Chi Rho","Alpha Delta Phi","Alpha Epsilon Pi","Alpha Eta Rho",
+    "Alpha Gamma Omega","Alpha Gamma Rho","Alpha Kappa Lambda","Alpha Kappa Psi",
+    "Alpha Phi Omega","Alpha Psi Lambda","Alpha Sigma Phi","Alpha Tau Omega",
+    "Beta Chi Theta","Beta Theta Pi","Beta Upsilon Chi","Chi Phi","Chi Psi",
+    "Chi Sigma Tau","Delta Chi","Delta Epsilon Psi","Delta Kappa Alpha",
+    "Delta Kappa Epsilon","Delta Sigma Phi","Delta Sigma Pi","Delta Tau Delta",
+    "Delta Upsilon","FarmHouse","Gamma Beta Chi","Gamma Zeta Alpha","Iota Phi Theta",
+    "Kappa Alpha Order","Kappa Delta Rho","Kappa Kappa Psi","Kappa Psi","Kappa Sigma",
+    "Lambda Alpha Upsilon","Lambda Phi Epsilon","Lambda Sigma Upsilon","Lambda Theta Phi",
+    "Omega Delta Phi","Phi Alpha Delta","Phi Beta Sigma","Phi Chi Theta","Phi Delta Epsilon",
+    "Phi Gamma Delta (FIJI)","Phi Iota Alpha","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau",
+    "Phi Kappa Theta","Phi Mu Delta","Phi Sigma Kappa","Phi Sigma Pi","Phi Sigma Rho",
+    "Pi Alpha Phi","Pi Delta Psi","Pi Kappa Alpha","Pi Kappa Phi","Pi Sigma Epsilon",
+    "Psi Sigma Phi","Psi Upsilon","Sigma Alpha Epsilon","Sigma Alpha Mu","Sigma Beta Rho",
+    "Sigma Chi","Sigma Lambda Beta","Sigma Nu","Sigma Phi Delta","Sigma Phi Epsilon",
+    "Sigma Pi","Sigma Tau Gamma","Tau Epsilon Phi","Theta Chi","Theta Tau","Triangle",
+    "Zeta Beta Tau","Zeta Psi",
+]
+
+# PLACEHOLDER — swap in real per-org SwagFlo store URLs once provided.
+# For now all link to the general fraternities landing page.
+PLACEHOLDER_URL = "https://greekempire.swagflo.com/fraternities"
+
+FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">'
+
+CSS = """
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--obsidian:#0A0A0A;--gold:#B8963E;--gold-lt:#D4AF60;--cream:#F0EBE0;--muted:#5C5750;--border:rgba(184,150,62,0.2);--card:#111111;}
+body{background:var(--obsidian);color:var(--cream);font-family:'DM Sans',sans-serif;min-height:100vh;}
+.meander{width:100%;height:12px;background-image:url("data:image/svg+xml,%3Csvg width='40' height='12' viewBox='0 0 40 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6h6V0h8v6h2V0h8v8h-6v4h-2v-4h-8v6H0z' fill='rgba(184,150,62,0.18)'/%3E%3C/svg%3E");background-repeat:repeat-x;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:14px 60px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,10,0.97);backdrop-filter:blur(10px);z-index:100;}
+.nav-logo{display:flex;align-items:center;text-decoration:none;}
+.nav-logo img{height:52px;width:auto;}
+.nav-back{font-size:12px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--cream);}
+@keyframes shimmerGold{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+@keyframes headerFadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes headerScaleIn{from{opacity:0;transform:scale(0.94);}to{opacity:1;transform:scale(1);}}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;animation:headerFadeIn 0.6s ease both;}
+.rule{width:48px;height:2px;background:var(--gold);margin:9px auto;}
+.page-hero{text-align:center;padding:48px 60px 32px;background:#FFFFFF;border-bottom:1px solid var(--border);border-top:3px solid var(--gold);}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,96px);font-weight:600;font-style:italic;line-height:1.25;padding-top:0.15em;margin-bottom:0;background:linear-gradient(90deg,#7A5010 0%,#C4881A 20%,#F5D77A 35%,#FFF6D8 45%,#F0C840 55%,#C4901C 70%,#8B6212 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:headerScaleIn 0.7s cubic-bezier(.16,.8,.24,1) 0.2s both, shimmerGold 4s linear infinite;}
+.page-desc{font-size:15px;font-weight:300;color:#6B6459;max-width:520px;margin:16px auto 0;line-height:1.8;}
+.directory-bg{background:#FFFFFF;}
+.directory-wrap{max-width:840px;margin:0 auto;padding:48px 60px 96px;}
+.search-box{position:relative;margin-bottom:36px;}
+.search-input{width:100%;background:#FAF8F4;border:1px solid rgba(0,0,0,0.14);color:#1A1A1A;font-family:'DM Sans',sans-serif;font-size:15px;padding:15px 20px 15px 46px;transition:border-color .2s;}
+.search-input:focus{outline:none;border-color:var(--gold);}
+.search-input::placeholder{color:#A8A198;}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:#9A958C;pointer-events:none;}
+.result-count{font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;}
+.letter-group{margin-bottom:8px;}
+.letter-group.hidden{display:none;}
+.letter-heading{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--gold);border-bottom:1px solid rgba(184,150,62,0.25);padding-bottom:8px;margin:32px 0 4px;}
+.letter-heading:first-of-type{margin-top:0;}
+.org-item{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:#1A1A1A;text-decoration:none;padding:13px 4px;border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;transition:color .2s,padding-left .2s;}
+.org-item:hover{color:var(--gold);padding-left:8px;}
+.org-item.hidden{display:none;}
+.org-arrow{opacity:0;font-size:14px;color:var(--gold);transition:opacity .2s;}
+.org-item:hover .org-arrow{opacity:1;}
+.no-results{display:none;text-align:center;padding:48px 20px;color:#8A8378;font-style:italic;}
+.no-results.show{display:block;}
+footer{padding:36px 60px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:24px;}
+.foot-left{display:flex;flex-direction:column;gap:6px;justify-self:start;}
+.foot-brand{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+.foot-tag{font-size:12px;color:var(--muted);font-style:italic;}
+.foot-address{font-size:12px;color:var(--muted);}
+.foot-center{display:flex;flex-direction:column;align-items:center;gap:16px;justify-self:center;}
+.foot-social{display:flex;align-items:center;gap:18px;}
+.foot-social-link{color:var(--gold);display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:50%;transition:color .2s,border-color .2s,background .2s,transform .2s;}
+.foot-social-link:hover{color:var(--obsidian);background:var(--gold);border-color:var(--gold);transform:translateY(-2px);}
+.foot-shield{width:70px;height:auto;opacity:0.9;}
+@media(max-width:1024px){
+nav,footer{padding-left:32px;padding-right:32px;}
+.page-hero{padding-left:32px;padding-right:32px;}
+.directory-wrap{padding-left:32px;padding-right:32px;}
+}
+@media(max-width:640px){
+nav,footer{padding-left:20px;padding-right:20px;}
+footer{grid-template-columns:1fr;justify-items:center;gap:24px;text-align:center;}
+.foot-left{align-items:center;}
+.page-hero{padding:26px 20px 20px;}
+.directory-wrap{padding:32px 20px 72px;}
+.org-item{font-size:17px;}
+}
+"""
+
+def head(title):
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} — Greek Empire</title>
+<meta name="description" content="Greek Empire — Find your fraternity and shop custom branded merchandise.">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta property="og:title" content="{title} — Greek Empire">
+<meta property="og:description" content="College branded merchandise for the best years of your life.">
+<meta property="og:image" content="shield-logo.png">
+<meta property="og:type" content="website">
+{FONTS}
+<style>{CSS}</style>
+</head>
+<body>"""
+
+def nav_bar():
+    return """<div class="meander"></div>
+<nav>
+  <a href="https://greekempire.swagflo.com/" class="nav-logo"><img src="logo.png" alt="Greek Empire"></a>
+  <a href="https://greekempire.swagflo.com/" class="nav-back">&larr; Back to Site</a>
+</nav>"""
+
+def foot():
+    return """<div class="meander"></div>
+<footer>
+  <div class="foot-left">
+    <span class="foot-brand">Greek Empire</span>
+    <span class="foot-tag">College Branded Merchandise for the Best Years of Your Life</span>
+    <span class="foot-address">281 Benigno Blvd, Bellmawr, New Jersey 08031</span>
+  </div>
+  <div class="foot-center">
+    <div class="foot-social">
+      <a href="https://www.instagram.com/_greekempire_" target="_blank" rel="noopener" aria-label="Instagram" class="foot-social-link">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.15" fill="currentColor"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@_greekempire_" target="_blank" rel="noopener" aria-label="TikTok" class="foot-social-link">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M16.5 2c.4 2.2 1.9 3.9 4 4.3v2.9c-1.5 0-2.9-.4-4-1.2v6.7c0 3.4-2.8 6.1-6.1 6.1S4.3 18.1 4.3 14.7c0-3.3 2.6-6 5.9-6.1v3c-1.6.1-2.9 1.4-2.9 3.1 0 1.7 1.4 3.1 3.1 3.1s3.1-1.4 3.1-3.1V2h2.9z" fill="currentColor"/></svg>
+      </a>
+    </div>
+    <img src="shield-logo.png" alt="Greek Empire" class="foot-shield">
+  </div>
+</footer>
+</body>
+</html>"""
+
+def make_page():
+    grouped = {}
+    for name in FRATERNITIES:
+        letter = name[0].upper()
+        grouped.setdefault(letter, []).append(name)
+
+    groups_html = ""
+    for letter in sorted(grouped.keys()):
+        groups_html += f'  <div class="letter-group" data-letter="{letter}">\n'
+        groups_html += f'    <p class="letter-heading">{letter}</p>\n'
+        for name in grouped[letter]:
+            slug = urllib.parse.quote(name)
+            groups_html += f'    <a href="{PLACEHOLDER_URL}" target="_blank" rel="noopener" class="org-item" data-name="{name.lower()}"><span>{name}</span><span class="org-arrow">&rarr;</span></a>\n'
+        groups_html += '  </div>\n'
+
+    html = head("Shop by Fraternity") + nav_bar() + f"""
+<section class="page-hero">
+  <p class="eyebrow">Design Gallery</p>
+  <h1>Shop by Fraternity</h1>
+  <div class="rule"></div>
+  <p class="page-desc">Find your fraternity and shop custom branded merchandise built for your organization.</p>
+</section>
+<div class="directory-bg">
+<div class="directory-wrap">
+
+  <div class="search-box">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <input type="text" class="search-input" id="orgSearch" placeholder="Search for your fraternity..." oninput="filterOrgs()">
+  </div>
+
+  <p class="result-count" id="resultCount">{len(FRATERNITIES)} Fraternities</p>
+
+  <div id="orgGroups">
+{groups_html}
+  </div>
+
+  <p class="no-results" id="noResults">No fraternities match your search.</p>
+
+</div>
+</div>
+
+<script>
+  function filterOrgs() {{
+    var query = document.getElementById('orgSearch').value.trim().toLowerCase();
+    var items = document.querySelectorAll('.org-item');
+    var groups = document.querySelectorAll('.letter-group');
+    var visibleCount = 0;
+
+    items.forEach(function(item) {{
+      var name = item.getAttribute('data-name');
+      var match = name.indexOf(query) !== -1;
+      item.classList.toggle('hidden', !match);
+      if (match) visibleCount++;
+    }});
+
+    groups.forEach(function(group) {{
+      var visibleItems = group.querySelectorAll('.org-item:not(.hidden)');
+      group.classList.toggle('hidden', visibleItems.length === 0);
+    }});
+
+    document.getElementById('resultCount').textContent = visibleCount + (visibleCount === 1 ? ' Fraternity' : ' Fraternities');
+    document.getElementById('noResults').classList.toggle('show', visibleCount === 0);
+  }}
+</script>""" + foot()
+
+    with open(f"{DIR}/index.html", "w") as f:
+        f.write(html)
+    print(f"✓ index.html — {len(FRATERNITIES)} fraternities")
+
+make_page()
