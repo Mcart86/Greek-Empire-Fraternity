@@ -4,22 +4,16 @@ import json, urllib.parse
 DIR = "/home/claude/greek-empire-fraternity"
 
 FRATERNITIES = [
-    "Acacia","Alpha Chi Rho","Alpha Delta Phi","Alpha Epsilon Pi","Alpha Eta Rho",
-    "Alpha Gamma Omega","Alpha Gamma Rho","Alpha Kappa Lambda","Alpha Kappa Psi",
-    "Alpha Phi Omega","Alpha Psi Lambda","Alpha Sigma Phi","Alpha Tau Omega",
-    "Beta Chi Theta","Beta Theta Pi","Beta Upsilon Chi","Chi Phi","Chi Psi",
-    "Chi Sigma Tau","Delta Chi","Delta Epsilon Psi","Delta Kappa Alpha",
-    "Delta Kappa Epsilon","Delta Sigma Phi","Delta Sigma Pi","Delta Tau Delta",
-    "Delta Upsilon","FarmHouse","Gamma Beta Chi","Gamma Zeta Alpha","Iota Phi Theta",
-    "Kappa Alpha Order","Kappa Delta Rho","Kappa Kappa Psi","Kappa Psi","Kappa Sigma",
-    "Lambda Alpha Upsilon","Lambda Phi Epsilon","Lambda Sigma Upsilon","Lambda Theta Phi",
-    "Omega Delta Phi","Phi Alpha Delta","Phi Beta Sigma","Phi Chi Theta","Phi Delta Epsilon",
-    "Phi Gamma Delta (FIJI)","Phi Iota Alpha","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau",
-    "Phi Kappa Theta","Phi Mu Delta","Phi Sigma Kappa","Phi Sigma Pi","Phi Sigma Rho",
-    "Pi Alpha Phi","Pi Delta Psi","Pi Kappa Alpha","Pi Kappa Phi","Pi Sigma Epsilon",
-    "Psi Sigma Phi","Psi Upsilon","Sigma Alpha Epsilon","Sigma Alpha Mu","Sigma Beta Rho",
-    "Sigma Chi","Sigma Lambda Beta","Sigma Nu","Sigma Phi Delta","Sigma Phi Epsilon",
-    "Sigma Pi","Sigma Tau Gamma","Tau Epsilon Phi","Theta Chi","Theta Tau","Triangle",
+    "Acacia","Alpha Chi Rho","Alpha Epsilon Pi","Alpha Gamma Rho","Alpha Kappa Lambda",
+    "Alpha Sigma Phi","Alpha Tau Omega","Beta Chi Theta","Beta Theta Pi","Beta Upsilon Chi",
+    "Chi Phi","Chi Psi","Chi Sigma Tau","Chi Upsilon Sigma","Delta Chi","Delta Sigma Phi",
+    "Delta Tau Delta","Delta Upsilon","FarmHouse","Gamma Delta Chi","Gamma Sigma Sigma",
+    "Kappa Alpha Order","Kappa Alpha Psi","Kappa Sigma","Lambda Alpha Upsilon","Lambda Chi Alpha",
+    "Phi Gamma Delta (FIJI)","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau","Phi Sigma Kappa",
+    "Phi Sigma Pi","Pi Kappa Alpha","Pi Kappa Phi","Pi Lambda Phi","Psi Sigma Phi",
+    "Sigma Alpha Epsilon","Sigma Alpha Mu","Sigma Beta Rho","Sigma Chi","Sigma Nu",
+    "Sigma Phi Delta","Sigma Phi Epsilon","Sigma Pi","Sigma Sigma Sigma","Sigma Tau Gamma",
+    "Tau Beta Sigma","Tau Epsilon Phi","Theta Chi","Theta Tau","Triangle",
     "Zeta Beta Tau","Zeta Psi",
 ]
 
