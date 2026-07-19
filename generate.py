@@ -121,8 +121,7 @@ def head(title):
 <body>"""
 
 def nav_bar():
-    return """<div class="meander"></div>
-<nav>
+    return """<nav>
   <a href="https://greekempire.swagflo.com/" class="nav-logo"><img src="logo.png" alt="Greek Empire"></a>
   <a href="https://greekempire.swagflo.com/" class="nav-back">&larr; Back to Site</a>
 </nav>"""
