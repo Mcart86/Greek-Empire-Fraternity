@@ -5,7 +5,7 @@ DIR = "/home/claude/greek-empire-fraternity"
 
 FRATERNITIES = [
     "Acacia","Alpha Chi Rho","Alpha Epsilon Pi","Alpha Gamma Rho","Alpha Kappa Lambda",
-    "Alpha Sigma Phi","Alpha Tau Omega","Beta Chi Theta","Beta Theta Pi","Beta Upsilon Chi",
+    "Alpha Sigma Phi","Alpha Tau Omega","Beta Chi Theta","Beta Sigma Beta","Beta Theta Pi","Beta Upsilon Chi",
     "Chi Phi","Chi Psi","Chi Sigma Tau","Delta Chi","Delta Sigma Phi","Delta Sigma Pi",
     "Delta Tau Delta","Delta Upsilon","FarmHouse","Gamma Delta Chi",
     "Kappa Alpha Order","Kappa Alpha Psi","Kappa Sigma","Lambda Alpha Upsilon","Lambda Chi Alpha",
@@ -20,6 +20,11 @@ FRATERNITIES = [
 # PLACEHOLDER — swap in real per-org SwagFlo store URLs once provided.
 # For now all link to the general fraternities landing page.
 PLACEHOLDER_URL = "https://greekempire.swagflo.com/fraternities"
+
+# Per-organization store URL overrides. Falls back to PLACEHOLDER_URL if not listed here.
+STORE_URLS = {
+    "Beta Sigma Beta": "https://greekempire.swagflo.com/shop-by-fraternity/beta-sigma-beta",
+}
 
 FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">'
 
@@ -165,7 +170,8 @@ def make_page():
         groups_html += f'    <p class="letter-heading">{letter}</p>\n'
         for name in grouped[letter]:
             slug = urllib.parse.quote(name)
-            groups_html += f'    <a href="{PLACEHOLDER_URL}" target="_blank" rel="noopener" class="org-item" data-name="{name.lower()}"><span>{name}</span><span class="org-arrow">&rarr;</span></a>\n'
+            org_url = STORE_URLS.get(name, PLACEHOLDER_URL)
+            groups_html += f'    <a href="{org_url}" target="_blank" rel="noopener" class="org-item" data-name="{name.lower()}"><span>{name}</span><span class="org-arrow">&rarr;</span></a>\n'
         groups_html += '  </div>\n'
         az_bar_html += f'    <a href="#letter-{letter}" class="az-letter" data-jump="{letter}">{letter}</a>\n'
 
