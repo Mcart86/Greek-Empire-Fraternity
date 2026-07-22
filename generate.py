@@ -4,17 +4,20 @@ import json, urllib.parse
 DIR = "/home/claude/greek-empire-fraternity"
 
 FRATERNITIES = [
-    "Acacia","Alpha Chi Rho","Alpha Epsilon Pi","Alpha Gamma Rho","Alpha Kappa Lambda",
-    "Alpha Sigma Phi","Alpha Tau Omega","Beta Chi Theta","Beta Sigma Beta","Beta Theta Pi","Beta Upsilon Chi",
-    "Chi Phi","Chi Psi","Chi Sigma Tau","Delta Chi","Delta Sigma Phi","Delta Sigma Pi",
-    "Delta Tau Delta","Delta Upsilon","FarmHouse","Gamma Delta Chi",
-    "Kappa Alpha Order","Kappa Alpha Psi","Kappa Sigma","Lambda Alpha Upsilon","Lambda Chi Alpha",
-    "Mu Phi Epsilon","Phi Alpha Delta","Phi Gamma Delta (FIJI)","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau","Phi Sigma Kappa",
-    "Phi Sigma Pi","Pi Delta Psi","Pi Kappa Alpha","Pi Kappa Phi","Pi Lambda Phi","Psi Sigma Phi",
-    "Sigma Alpha Epsilon","Sigma Alpha Mu","Sigma Beta Rho","Sigma Chi","Sigma Nu",
-    "Sigma Phi Delta","Sigma Phi Epsilon","Sigma Pi","Sigma Tau Gamma",
-    "Tau Epsilon Phi","Theta Chi","Theta Tau","Triangle",
-    "Zeta Beta Tau","Zeta Psi",
+    "Acacia","Alpha Chi Rho","Alpha Delta Phi","Alpha Epsilon Pi","Alpha Eta Rho",
+    "Alpha Gamma Omega","Alpha Gamma Rho","Alpha Kappa Lambda","Alpha Kappa Psi","Alpha Sigma Phi",
+    "Alpha Tau Omega","Beta Chi Theta","Beta Sigma Beta","Beta Theta Pi","Beta Upsilon Chi",
+    "Chi Phi","Chi Psi","Chi Sigma Tau","Delta Chi","Delta Epsilon Psi","Delta Kappa Epsilon",
+    "Delta Sigma Phi","Delta Sigma Pi","Delta Tau Delta","Delta Tau Lambda","Delta Upsilon",
+    "FarmHouse","Gamma Beta Chi","Gamma Delta Chi","Kappa Alpha Order","Kappa Alpha Psi",
+    "Kappa Delta Rho","Kappa Psi","Kappa Sigma","Lambda Alpha Upsilon","Lambda Chi Alpha",
+    "Lambda Sigma Upsilon","Lambda Theta Phi","Mu Phi Epsilon","Phi Alpha Delta",
+    "Phi Gamma Delta (FIJI)","Phi Kappa Psi","Phi Kappa Sigma","Phi Kappa Tau","Phi Mu Delta",
+    "Phi Sigma Kappa","Phi Sigma Pi","Pi Alpha Phi","Pi Delta Psi","Pi Kappa Alpha","Pi Kappa Phi",
+    "Pi Lambda Phi","Psi Sigma Phi","Psi Upsilon","Sigma Alpha Epsilon","Sigma Alpha Mu",
+    "Sigma Beta Rho","Sigma Chi","Sigma Nu","Sigma Phi Delta","Sigma Phi Epsilon","Sigma Pi",
+    "Sigma Tau Gamma","Tau Epsilon Phi","Theta Chi","Theta Tau","Triangle","Zeta Beta Tau",
+    "Zeta Psi",
 ]
 
 # PLACEHOLDER — swap in real per-org SwagFlo store URLs once provided.
